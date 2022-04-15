@@ -1,5 +1,5 @@
-require "sinatra"
-require "sinatra/reloader"
+require "sinatra" 
+require "sinatra/reloader" if development? # production? and dev? query env variable for RACK_ENV
 
 helpers do
   def highlight(search_term, text)
@@ -63,10 +63,7 @@ helpers do
                                      
       iterate_paragraphs(chapter_contents) do |paragraph|
         if paragraph.include?(search_term)
-          puts "search term found"
-
           id_tag = isolate_id_tag(paragraph)
-          puts "#{id_tag} = a #{id_tag.class}"
           search_results[chapter_number][:matches][id_tag] = paragraph
         end
       end
